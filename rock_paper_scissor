@@ -1,0 +1,48 @@
+import random
+import tools
+
+user_select = 0
+rand_select = 0
+
+
+def play_one_round():
+    # update variables
+    global user_select
+    global rand_select
+    # dictionary of choices
+    choices = {1: 'Rock.', 2: 'Paper.', 3: 'Scissors.'}
+    # create 3 variables to hold a message to display for each possible game result
+    tie = 'It is a tie.'
+    won = 'You won.'
+    lost = 'You lost.'
+    # create a tuple of tuples with the game results
+    outcomes = ((tie, lost, won),
+                (won, tie, lost),
+                (lost, won, tie))
+    # ask user for their rock, paper, or scissors selection and validate input
+    user_select = tools.ask_user_for_int('Rock, Paper, Scissors ... Shoot! Make your choice.'
+                                         '\nEnter 1 = Rock, 2 = Paper, 3 = Scissors:', 1, 3)
+    # display user choice
+    print('You chose', choices.get(user_select))
+    # gen random number for computer selection
+    rand_select = random.randint(1, 3)
+    # display computer choice
+    print('Computer chose', choices.get(rand_select))
+    # display game result
+    print(outcomes[user_select-1][rand_select-1])
+
+
+def main():
+    print('Welcome to my Rock, Paper, Scissors game!')  # print welcome message
+
+    # ask user for number of rounds and validate input
+    num_rounds = tools.ask_user_for_int('\nHow many rounds would you like to play?', 1, 5)
+
+    for index in range(num_rounds):
+        print('\nRound', index + 1)  # print round number
+        play_one_round()  # call play_one_round function
+
+    print('\nThanks for playing!')  # print thank you message
+
+
+main()  # call main function
